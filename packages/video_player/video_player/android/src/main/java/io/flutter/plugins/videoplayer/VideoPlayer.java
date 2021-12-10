@@ -13,7 +13,6 @@ import android.view.Surface;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
-//import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.EventListener;
@@ -93,7 +92,6 @@ final class VideoPlayer {
     }
 
     MediaSource mediaSource = buildMediaSource(uri, dataSourceFactory, formatHint, context);
-//    exoPlayer.setMediaSource(mediaSource);
     exoPlayer.prepare(mediaSource);
 
     setupVideoPlayer(eventChannel, textureEntry);
@@ -137,21 +135,17 @@ final class VideoPlayer {
                 new DefaultSsChunkSource.Factory(mediaDataSourceFactory),
                 new DefaultDataSourceFactory(context, null, mediaDataSourceFactory))
                 .createMediaSource(uri);
-//            .createMediaSource(MediaItem.fromUri(uri));
       case C.TYPE_DASH:
         return new DashMediaSource.Factory(
                 new DefaultDashChunkSource.Factory(mediaDataSourceFactory),
                 new DefaultDataSourceFactory(context, null, mediaDataSourceFactory))
                 .createMediaSource(uri);
-//            .createMediaSource(MediaItem.fromUri(uri));
       case C.TYPE_HLS:
         return new HlsMediaSource.Factory(mediaDataSourceFactory)
                 .createMediaSource(uri);
-//            .createMediaSource(MediaItem.fromUri(uri));
       case C.TYPE_OTHER:
         return new ProgressiveMediaSource.Factory(mediaDataSourceFactory)
                 .createMediaSource(uri);
-//            .createMediaSource(MediaItem.fromUri(uri));
       default:
         {
           throw new IllegalStateException("Unsupported type: " + type);
@@ -212,27 +206,6 @@ final class VideoPlayer {
               setBuffering(false);
             }
           }
-
-//          @Override
-//          public void onPlaybackStateChanged(final int playbackState) {
-//            if (playbackState == Player.STATE_BUFFERING) {
-//              setBuffering(true);
-//              sendBufferingUpdate();
-//            } else if (playbackState == Player.STATE_READY) {
-//              if (!isInitialized) {
-//                isInitialized = true;
-//                sendInitialized();
-//              }
-//            } else if (playbackState == Player.STATE_ENDED) {
-//              Map<String, Object> event = new HashMap<>();
-//              event.put("event", "completed");
-//              eventSink.success(event);
-//            }
-//
-//            if (playbackState != Player.STATE_BUFFERING) {
-//              setBuffering(false);
-//            }
-//          }
 
           @Override
           public void onPlayerError(final ExoPlaybackException error) {
